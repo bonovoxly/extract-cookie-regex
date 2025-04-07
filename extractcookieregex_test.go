@@ -1,4 +1,4 @@
-package extractcookie_test
+package extractcookieregex_test
 
 import (
 	"context"
@@ -152,7 +152,7 @@ func TestTwoCookie(t *testing.T) {
 func testHttpRequest(t *testing.T, data TestHttpResData) {
 	t.Helper()
 
-	cfg := CreateConfig()
+	cfg := extractcookieregex.CreateConfig()
 	cfg.CookieName = data.cfgCookieName
 	cfg.HeaderNameForCookieValue = data.cfgHeaderNameForCookieValue
 	cfg.CookieValuePrefix = data.cfgCookieValuePrefix
@@ -166,7 +166,7 @@ func testHttpRequest(t *testing.T, data TestHttpResData) {
 		rw.Write(backendBody)
 	})
 
-	handler, err := New(ctx, next, cfg, "tlsclientcertforward")
+	handler, err := extractcookieregex.New(ctx, next, cfg, "tlsclientcertforward")
 	if err != nil {
 		t.Fatal(err)
 	}

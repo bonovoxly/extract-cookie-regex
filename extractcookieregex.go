@@ -1,4 +1,4 @@
-package extractcookie
+package extractcookieregex
 
 import (
 	"context"
@@ -11,9 +11,9 @@ import (
 
 //nolint:gochecknoglobals // TODO exchange for traefik log when available
 var (
-	LoggerWARN  = log.New(ioutil.Discard, "WARN:  extractcookie: ", log.Ldate|log.Ltime|log.Lshortfile)
-	LoggerINFO  = log.New(ioutil.Discard, "INFO:  extractcookie: ", log.Ldate|log.Ltime|log.Lshortfile)
-	LoggerDEBUG = log.New(ioutil.Discard, "DEBUG: extractcookie: ", log.Ldate|log.Ltime|log.Lshortfile)
+	LoggerWARN  = log.New(ioutil.Discard, "WARN:  extractcookieregex: ", log.Ldate|log.Ltime|log.Lshortfile)
+	LoggerINFO  = log.New(ioutil.Discard, "INFO:  extractcookieregex: ", log.Ldate|log.Ltime|log.Lshortfile)
+	LoggerDEBUG = log.New(ioutil.Discard, "DEBUG: extractcookieregex: ", log.Ldate|log.Ltime|log.Lshortfile)
 )
 
 type Config struct {
@@ -50,11 +50,11 @@ func New(_ context.Context, next http.Handler, config *Config, name string) (htt
 		LoggerINFO.SetOutput(os.Stdout)
 		LoggerDEBUG.SetOutput(os.Stdout)
 	default:
-		return nil, fmt.Errorf("ERROR: extractcookie: %s", config.LogLevel)
+		return nil, fmt.Errorf("ERROR: extractcookieregex: %s", config.LogLevel)
 	}
 
 	if config.CookieName == "" {
-		return nil, fmt.Errorf("ERROR: extractcookie: cookie name can not be empty")
+		return nil, fmt.Errorf("ERROR: extractcookieregex: cookie name can not be empty")
 	}
 
 	return &ExtractCookie{
