@@ -8,7 +8,6 @@ import (
 	"reflect"
 	"testing"
 	"time"
-
 	"github.com/bonovoxly/extract-cookie-regex"
 )
 
@@ -153,7 +152,7 @@ func TestTwoCookie(t *testing.T) {
 func testHttpRequest(t *testing.T, data TestHttpResData) {
 	t.Helper()
 
-	cfg := extractcookie.CreateConfig()
+	cfg := CreateConfig()
 	cfg.CookieName = data.cfgCookieName
 	cfg.HeaderNameForCookieValue = data.cfgHeaderNameForCookieValue
 	cfg.CookieValuePrefix = data.cfgCookieValuePrefix
@@ -167,7 +166,7 @@ func testHttpRequest(t *testing.T, data TestHttpResData) {
 		rw.Write(backendBody)
 	})
 
-	handler, err := extractcookie.New(ctx, next, cfg, "tlsclientcertforward")
+	handler, err := New(ctx, next, cfg, "tlsclientcertforward")
 	if err != nil {
 		t.Fatal(err)
 	}
